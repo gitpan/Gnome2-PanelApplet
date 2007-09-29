@@ -17,4 +17,5 @@ t/00.PanelApplet.t
 t/GNOME_PerlAppletTest.server
 t/test-applet
 xs/PanelApplet.xs
+xs/PanelAppletGConf.xs
 META.yml                                 Module meta-data (added by MakeMaker)

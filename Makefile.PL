@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# $Id: Makefile.PL,v 1.4 2007/08/13 19:03:23 kaffeetisch Exp $
+# $Id: Makefile.PL,v 1.7 2007/09/29 11:54:45 kaffeetisch Exp $
 
 use 5.008;
 use strict;
@@ -15,9 +15,10 @@ our %build_reqs = (
 our %perl_reqs = (
   'ExtUtils::Depends'   => '0.20',
   'ExtUtils::PkgConfig' => '1.03',
-  'Glib'                => '1.053',
+  'Glib'                => '1.160',
   'Gtk2'                => '1.040',
   'Gnome2'              => '1.042',
+  'Gnome2::GConf'       => '1.044',
 );
 
 unless (eval "use ExtUtils::Depends '$perl_reqs{'ExtUtils::Depends'}';"
@@ -25,6 +26,7 @@ unless (eval "use ExtUtils::Depends '$perl_reqs{'ExtUtils::Depends'}';"
            . "use Glib '$perl_reqs{'Glib'}';"
            . "use Gtk2 '$perl_reqs{'Gtk2'}';"
            . "use Gnome2 '$perl_reqs{'Gnome2'}';"
+           . "use Gnome2::GConf '$perl_reqs{'Gnome2::GConf'}';"
            . "use Glib::MakeHelper;"
            . "use Gtk2::CodeGen;"
            . "1") {
@@ -54,7 +56,7 @@ ExtUtils::PkgConfig->write_version_macros (
   "libpanelapplet-2.0" => "PANEL_APPLET",
 );
 
-my $dep = ExtUtils::Depends->new('Gnome2::PanelApplet', 'Gnome2');
+my $dep = ExtUtils::Depends->new('Gnome2::PanelApplet', qw/Gnome2 Gnome2::GConf/);
 $dep->set_inc($pkgcfg{cflags});
 $dep->set_libs($pkgcfg{libs});
 $dep->add_xs(@xs_files);

@@ -15,16 +15,18 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *
- * $Id: libpanelapplet-perl.h,v 1.2 2007/07/30 21:33:17 kaffeetisch Exp $
+ * $Id: libpanelapplet-perl.h,v 1.3 2007/09/29 11:47:15 kaffeetisch Exp $
  */
 
 #ifndef _LIBPANELAPPLET_PERL_H_
 #define _LIBPANELAPPLET_PERL_H_
 
 #include <gnome2perl.h>
+#include <gconfperl.h>
 
 #include <panel-applet.h>
 #include <panel-applet-enums.h>
+#include <panel-applet-gconf.h>
 
 /* Custom GType for the panel orientations. */
 #define PANEL_PERL_TYPE_PANEL_APPLET_ORIENT panel_perl_applet_orient_get_type()

@@ -1,18 +1,19 @@
 package Gnome2::PanelApplet;
 
-# $Id: PanelApplet.pm,v 1.3 2007/08/13 19:04:52 kaffeetisch Exp $
+# $Id: PanelApplet.pm,v 1.5 2007/09/29 11:59:14 kaffeetisch Exp $
 
 use 5.008;
 use strict;
 use warnings;
 
 use Gnome2;
+use Gnome2::GConf;
 
 require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub import {
   my $self = shift();
@@ -22,6 +23,24 @@ sub import {
 sub dl_load_flags { 0x01 }
 
 Gnome2::PanelApplet -> bootstrap($VERSION);
+
+sub gconf_get_list {
+  my ($applet, $key, $check_error) = @_;
+  $check_error = 1 unless defined $check_error;
+
+  my $value = $applet->gconf_get_value ($key, $check_error);
+  return $value->{value};
+}
+
+sub gconf_set_list {
+  my ($applet, $key, $list_type, $list, $check_error) = @_;
+  $check_error = 1 unless defined $check_error;
+
+  $applet->gconf_set_value ($key,
+                            { type => $list_type,
+                              value => $list },
+                            $check_error);
+}
 
 1;
 __END__
@@ -71,7 +90,8 @@ Use Perl to write GNOME applets that sit on the panel.
 
 I<Gnome2::PanelApplet::Factory-E<gt>main> is documented in
 L<Gnome2::PanelApplet::Factory>.  The methods you can call on the applet
-instance are documented in L<Gnome2::PanelApplet::main>.
+instance are documented in L<Gnome2::PanelApplet::main>.  The GConf helper
+functions are documented in L<Gnome2::PanelApplet::GConf>.
 
 =head1 SEE ALSO
 
