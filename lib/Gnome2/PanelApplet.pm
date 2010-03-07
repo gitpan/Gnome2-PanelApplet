@@ -1,6 +1,6 @@
 package Gnome2::PanelApplet;
 
-# $Id: PanelApplet.pm,v 1.5 2007/09/29 11:59:14 kaffeetisch Exp $
+# $Id$
 
 use 5.008;
 use strict;
@@ -13,7 +13,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub import {
   my $self = shift();

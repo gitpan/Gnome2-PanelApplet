@@ -15,7 +15,7 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *
- * $Id: PanelApplet.xs,v 1.4 2007/07/31 16:57:26 kaffeetisch Exp $
+ * $Id$
  */
 
 #include "libpanelapplet-perl.h"
@@ -400,6 +400,39 @@ panel_applet_setup_menu_from_file (applet, opt_datadir, file, opt_app_name, verb
 			        "panel-perl-verb-list-key",
 			        real_verb_list,
 				(GDestroyNotify) destroy_verb_list);
+
+#if PANEL_APPLET_CHECK_VERSION(2, 10, 0)
+
+gboolean panel_applet_get_locked_down (PanelApplet *applet);
+
+void panel_applet_request_focus (PanelApplet *applet, guint32 timestamp);
+
+#endif
+
+#if PANEL_APPLET_CHECK_VERSION(2, 14, 0)
+
+void panel_applet_set_background_widget (PanelApplet *applet, GtkWidget *widget);
+
+#endif
+
+void
+GET_VERSION_INFO (class)
+    PPCODE:
+	EXTEND (SP, 3);
+	PUSHs (sv_2mortal (newSViv (PANEL_APPLET_MAJOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (PANEL_APPLET_MINOR_VERSION)));
+	PUSHs (sv_2mortal (newSViv (PANEL_APPLET_MICRO_VERSION)));
+	PERL_UNUSED_VAR (ax);
+
+bool
+CHECK_VERSION (class, major, minor, micro)
+	int major
+	int minor
+	int micro
+    CODE:
+	RETVAL = PANEL_APPLET_CHECK_VERSION (major, minor, micro);
+    OUTPUT:
+	RETVAL
 
 # --------------------------------------------------------------------------- #
 
